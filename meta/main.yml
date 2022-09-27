@@ -1,0 +1,10 @@
+---
+galaxy_info:
+  author: Jordan Murray
+  namespace: fueledbyjordan
+  role_name: docker-compose
+  description: Docker Compose for systemd.
+  license: MIT
+  min_ansible_version: 2.5
+  galaxy_tags:
+    - docker-compose

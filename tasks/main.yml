@@ -1,0 +1,44 @@
+---
+
+- name: Create docker compose service config directory
+  ansible.builtin.file:
+    path: "/etc/docker/compose/{{ docker_compose_service_name }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0755'
+
+- name: Install docker-compose.yml file
+  ansible.builtin.template:
+    src: "{{ docker_compose_service_name }}_docker-compose.yml.j2"
+    dest: "/etc/docker/compose/{{ docker_compose_service_name }}/docker-compose.yml"
+    owner: root
+    group: root
+    mode: '0600'
+  notify: restart docker-compose service
+
+- name: Enable docker-compose service
+  ansible.builtin.service:
+    name: "docker-compose@{{ docker_compose_service_name }}"
+    enabled: true
+
+- name: Install docker-cleanup.timer
+  ansible.builtin.file:
+    src: docker-cleanup.timer
+    dest: /etc/systemd/system/docker-cleanup.timer
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Install docker-cleanup.service
+  ansible.builtin.file:
+    src: docker-cleanup.service
+    dest: /etc/systemd/system/docker-cleanup.service
+    owner: root
+    group: root
+    mode: '0644'
+
+- name: Enable docker-cleanup.timer
+  ansible.builtin.service:
+    name: docker-cleanup.timer
+    enabled: true

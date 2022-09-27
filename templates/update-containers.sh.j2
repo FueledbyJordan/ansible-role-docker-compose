@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# get updates and restart containers
+sudo {{ docker_compose_path }} -f /etc/docker/compose/{{ docker_compose_service_name }}/docker-compose.yml pull
+sudo {{ docker_compose_path }} -f /etc/docker/compose/{{ docker_compose_service_name }}/docker-compose.yml up -d --remove-orphans
+
+{% if container_update_ping_endpoint is defined and container_update_ping_endpoint|length %}
+# ping endpoint
+sudo /usr/bin/wget {{ container_update_ping_endpoint }} -T 15 -t 10 -O /dev/null -q
+{% endif %}

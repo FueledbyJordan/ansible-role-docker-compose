@@ -51,3 +51,11 @@
   ansible.builtin.service:
     name: docker-cleanup.timer
     enabled: true
+
+- name: Place update-containers script
+  ansible.builtin.template:
+    src: update-containers.sh.j2
+    dest: /usr/local/bin/update-containers
+    owner: root
+    group: root
+    mode: '0755'

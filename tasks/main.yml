@@ -32,7 +32,7 @@
     enabled: true
 
 - name: Install docker-cleanup.timer
-  ansible.builtin.file:
+  ansible.builtin.copy:
     src: docker-cleanup.timer
     dest: /etc/systemd/system/docker-cleanup.timer
     owner: root
@@ -40,7 +40,7 @@
     mode: '0644'
 
 - name: Install docker-cleanup.service
-  ansible.builtin.file:
+  ansible.builtin.copy:
     src: docker-cleanup.service
     dest: /etc/systemd/system/docker-cleanup.service
     owner: root

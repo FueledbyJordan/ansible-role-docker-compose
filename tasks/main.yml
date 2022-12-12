@@ -24,6 +24,7 @@
     owner: root
     group: root
     mode: '0600'
+    backup: true
   notify: restart docker-compose service
 
 - name: Enable docker-compose service
